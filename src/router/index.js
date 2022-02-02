@@ -14,16 +14,16 @@ const routes = [
                 path: "/dashboard",
                 name: "dashboard",
                 meta: {
-                    title: '系统首页'
+                    title: '首页'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
             }, {
-                path: "/table",
-                name: "basetable",
+                path: "/config",
+                name: "config",
                 meta: {
-                    title: '表格'
+                    title: '模型配置'
                 },
-                component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
+                component: () => import ( /* webpackChunkName: "table" */ "../views/Config.vue")
             }, {
                 path: "/charts",
                 name: "basecharts",

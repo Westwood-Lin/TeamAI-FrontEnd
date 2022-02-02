@@ -9,11 +9,13 @@
         </div>
         <div class="container">
             <div class="handle-box">
-                <el-select v-model="query.address" placeholder="地址" class="handle-select mr10">
-                    <el-option key="1" label="广东省" value="广东省"></el-option>
-                    <el-option key="2" label="湖南省" value="湖南省"></el-option>
+                <el-select v-model="query.address" placeholder="模型类别" class="handle-select mr10">
+                    <el-option key="1" label="分类" value="分类"></el-option>
+                    <el-option key="2" label="聚类" value="聚类"></el-option>
+                    <el-option key="3" label="回归" value="回归"></el-option>
+                    <el-option key="4" label="自动化" value="自动化"></el-option>
                 </el-select>
-                <el-input v-model="query.name" placeholder="用户名" class="handle-input mr10"></el-input>
+                <el-input v-model="query.name" placeholder="模型名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
             </div>
             <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
@@ -59,12 +61,23 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form label-width="70px">
-                <el-form-item label="用户名">
+            <el-form label-width="120px">
+                <el-form-item label="配置名称" required>
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
+                <el-form-item label="训练文件" required>
                     <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <el-form-item label="选择模型类别" required>
+                  <el-checkbox label="分类"></el-checkbox>
+                  <el-checkbox label="聚类"></el-checkbox>
+                  <el-checkbox label="回归"></el-checkbox>
+                  <el-checkbox label="自动化分类器"></el-checkbox>
+                </el-form-item>
+                <el-form-item label="选择训练特征" required>
+<!--                    <el-checkbox v-for="f in featureList" :key="f" :label="f"></el-checkbox>-->
+                    <el-checkbox label="手动选择"></el-checkbox>
+                    <el-checkbox label="自动选择"></el-checkbox>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -81,10 +94,10 @@
 import { ref, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { fetchData } from "../api/index";
-
 export default {
-    name: "basetable",
-    setup() {
+    name: "config",
+    //训练特征
+  setup() {
         const query = reactive({
             address: "",
             name: "",
@@ -131,6 +144,8 @@ export default {
         let form = reactive({
             name: "",
             address: "",
+          // classification:"",
+          // feature:"",
         });
         let idx = -1;
         const handleEdit = (index, row) => {
