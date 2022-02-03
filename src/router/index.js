@@ -109,6 +109,13 @@ const routes = [
                     title: '富文本编辑器'
                 },
                 component: () => import (/* webpackChunkName: "editor" */ '../views/Editor.vue')
+            },{
+                path:'/dllearning',
+                name:'dllearning',
+                meta:{
+                    title:'深度学习页面'
+                },
+                component:()=>import(/*webpackChunkName:"dllearning" */ '../views/Dllearning.vue')
             }
         ]
     }, {

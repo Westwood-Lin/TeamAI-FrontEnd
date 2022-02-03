@@ -51,7 +51,7 @@ export default {
             {
                 icon: "el-icon-lx-copy",
                 index: "/tabs",
-                title: "tab选项卡",
+                title: "tabs",
             },
             {
                 icon: "el-icon-lx-calendar",
@@ -113,6 +113,11 @@ export default {
                 index: "/donate",
                 title: "支持作者",
             },
+          {
+            icon: "el-icon-lx-redpacket_fill",
+            index: "/Dllearning",
+            title:"深度学习",
+          }
         ];
 
         const route = useRoute();
