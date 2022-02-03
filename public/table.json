@@ -1,16 +1,21 @@
 {
     "list": [{
             "id": 1,
-            "name": "张三",
+            "name": "决策树",
+            "type": "分类",
+            "feature": "手动选择",
             "money": 123,
             "address": "广东省东莞市长安镇",
             "state": "成功",
             "date": "2019-11-1",
             "thumb": "https://lin-xin.gitee.io/images/post/wms.png"
+
         },
         {
             "id": 2,
-            "name": "李四",
+            "name": "k-means聚类",
+            "type": "聚类",
+            "feature": "手动选择",
             "money": 456,
             "address": "广东省广州市白云区",
             "state": "成功",
@@ -19,7 +24,9 @@
         },
         {
             "id": 3,
-            "name": "王五",
+            "name": "线性回归1",
+            "type": "回归",
+            "feature": "手动选择",
             "money": 789,
             "address": "湖南省长沙市",
             "state": "失败",
@@ -28,7 +35,9 @@
         },
         {
             "id": 4,
-            "name": "赵六",
+            "name": "自动特征分类器1",
+            "type": "自动化分类器",
+            "feature": "自动选择",
             "money": 1011,
             "address": "福建省厦门市鼓浪屿",
             "state": "成功",
