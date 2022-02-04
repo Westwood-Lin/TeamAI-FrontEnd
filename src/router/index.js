@@ -116,6 +116,13 @@ const routes = [
                     title:'深度学习页面'
                 },
                 component:()=>import(/*webpackChunkName:"dllearning" */ '../views/Dllearning.vue')
+            },{
+                path:'/dlform',
+                name:'dlform',
+                meta:{
+                    title:'配置模型'
+                },
+                component:()=>import(/*webpackChunkName:"dllearning" */ '../views/dlform.vue')
             }
         ]
     }, {

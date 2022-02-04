@@ -53,13 +53,18 @@
 <!--            <el-button type="primary">全部标为已读</el-button>-->
 <!--          </div>-->
 
-            <button class="el-button el-button--primary" type="button" data-v-4eda24fc=""><!--v-if--><i class="el-icon-upload"></i><span>上传</span></button>
+<!--            <button class="el-button el-button&#45;&#45;primary" type="button" data-v-4eda24fc="">&lt;!&ndash;v-if&ndash;&gt;<i class="el-icon-upload"></i><span>上传</span></button>-->
 
-
-            <button class="el-button el-button--primary" type="button" data-v-4eda24fc=""><!--v-if--><i class="el-icon-s-home"></i><span>模型</span></button>
+<!--            <router-link to="/config">-->
+<!--&lt;!&ndash;            <button class="el-button el-button&#45;&#45;primary" type="button" data-v-4eda24fc="">&lt;!&ndash;v-if&ndash;&gt;<i class="el-icon-s-home"></i><span>添加模型</span></button>&ndash;&gt;-->
+<!--              <el-button type="primary" size="large">配置模型</el-button>-->
+<!--            </router-link>-->
 
 
         </el-tab-pane>
+        <router-link to="/dlform">
+          <el-button type="primary" size="large"><i class="el-icon-s-home"></i>配置模型</el-button>
+        </router-link>
 
 
       </el-tabs>
