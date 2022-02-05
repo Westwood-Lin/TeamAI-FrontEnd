@@ -91,7 +91,7 @@ export default {
             {
                 icon: "el-icon-pie-chart",
                 index: "/charts",
-                title: "schart图表",
+                title: "训练结果",
             },
             {
                 icon: "el-icon-lx-global",
