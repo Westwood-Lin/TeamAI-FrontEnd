@@ -7,19 +7,28 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
+
         <div class="container">
             <div class="handle-box">
                 <el-select v-model="query.address" placeholder="模型类别" class="handle-select mr10">
-                    <el-option key="1" label="分类" value="分类"></el-option>
-                    <el-option key="2" label="聚类" value="聚类"></el-option>
-                    <el-option key="3" label="回归" value="回归"></el-option>
-                    <el-option key="4" label="自动化" value="自动化"></el-option>
+                    <el-option key="0" label="所有" value="0"></el-option>
+                    <el-option key="1" label="分类" value="1"></el-option>
+                    <el-option key="2" label="聚类" value="2"></el-option>
+                    <el-option key="3" label="回归" value="3"></el-option>
+                    <el-option key="4" label="自动化" value="4"></el-option>
                 </el-select>
                 <el-input v-model="query.name" placeholder="模型名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-button type="success" icon="el-icon-plus" @click="handleSearch" style="position: absolute;right: 15em">添加模型</el-button>
+                <el-button type="danger" icon="el-icon-minus" @click="handleBatchDelete" style="position: absolute;right: 5em">批量删除</el-button>
             </div>
 
-            <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+            <el-table
+                :data="tableData" border class="table" ref="multipleTable"
+                header-cell-class-name="table-header"
+                @selection-change="handleSelectionChange"
+            >
+                <el-table-column width="50" type="selection"></el-table-column>
                 <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
                 <el-table-column prop="name" label="模型名"></el-table-column>
                 <el-table-column label="类别">
@@ -64,8 +73,8 @@
         </div>
 
         <!-- 编辑弹出框 -->
-        <el-dialog title="编辑" v-model="editVisible" width="30%">
-            <el-form label-width="120px">
+        <el-dialog title="编辑" v-model="editVisible" min-width="30%">
+            <el-form label-width="150px">
                 <el-form-item label="配置名称" required>
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
@@ -78,10 +87,16 @@
                   <el-checkbox label="回归"></el-checkbox>
                   <el-checkbox label="自动化分类器"></el-checkbox>
                 </el-form-item>
-                <el-form-item label="选择训练特征" required>
+
+                <el-form-item label="特征选择方式" required>
 <!--                    <el-checkbox v-for="f in featureList" :key="f" :label="f"></el-checkbox>-->
                     <el-checkbox label="手动选择"></el-checkbox>
                     <el-checkbox label="自动选择"></el-checkbox>
+                </el-form-item>
+
+                <el-form-item label="选择特征字段" required>
+                  <el-alert type="info" description="您下列选择的第一个字段为分类模型的目标字段"
+                            show-icon style="height: 40px;"></el-alert>
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -98,6 +113,7 @@
 import { ref, reactive } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { fetchData } from "../api/index";
+
 export default {
     name: "config",
     //训练特征
@@ -110,8 +126,9 @@ export default {
         });
 
         //new TODO
-        const typeList=["","分类","聚类","回归","自动分类器"];
-        const featureList=["","手动选择","自动选择"];
+        const typeList=["所有","分类","聚类","回归","自动分类器"];
+        const featureList=["所有","手动选择","自动选择"];
+        const multipleSelection =ref([]);
 
         const tableData = ref([]);
         const pageTotal = ref(0);
@@ -135,7 +152,7 @@ export default {
             getData();
         };
 
-        // 删除操作
+        // 删除操作(单个)
         const handleDelete = (index) => {
             // 二次确认删除
             ElMessageBox.confirm("确定要删除吗？", "提示", {
@@ -147,6 +164,41 @@ export default {
                 })
                 .catch(() => {});
         };
+
+        //TODO
+        const handleSelectionChange = (val) => {
+          multipleSelection.value = val
+        };
+
+        //TODO 批量删除
+        const handleBatchDelete =()=>{
+          // 二次确认
+          if(multipleSelection.value.length<=0){
+            ElMessageBox.alert("请先勾选要删除的模型", '提示', {
+              confirmButtonText: '好的'
+            })
+          }
+          else{
+            ElMessageBox.confirm("确定要删除这些模型吗？", "提示", {
+              type: "warning",
+            })
+                .then(() => {
+                  let idList=[];
+                  for(let i=0;i<multipleSelection.value.length;i++){
+                    let id=multipleSelection.value[i]['id'];
+                    idList.push(id);
+                  }
+                  idList.sort();
+                  console.log(idList);
+                  for (let i = idList[idList.length-1]; i >=0 ; i--) {
+                    tableData.value.splice(i,1);
+                  }
+                  ElMessage.success("删除成功");
+                })
+                .catch(() => {});
+          }
+        };
+
 
         // 表格编辑时弹窗和保存
         const editVisible = ref(false);
@@ -164,6 +216,7 @@ export default {
             });
             editVisible.value = true;
         };
+
         const saveEdit = () => {
             editVisible.value = false;
             ElMessage.success(`修改第 ${idx + 1} 行成功`);
@@ -181,6 +234,8 @@ export default {
             handleSearch,
             handlePageChange,
             handleDelete,
+          handleSelectionChange,
+            handleBatchDelete,
             handleEdit,
             saveEdit,
         };

@@ -49,9 +49,14 @@ export default {
                 title: "模型配置",
             },
             {
+              icon: "el-icon-lx-redpacket_fill",
+              index: "/Dllearning",
+              title:"深度学习",
+            },
+            {
                 icon: "el-icon-lx-copy",
                 index: "/tabs",
-                title: "tabs",
+                title: "我的消息",
             },
             {
                 icon: "el-icon-lx-calendar",
@@ -112,12 +117,7 @@ export default {
                 icon: "el-icon-lx-redpacket_fill",
                 index: "/donate",
                 title: "支持作者",
-            },
-          {
-            icon: "el-icon-lx-redpacket_fill",
-            index: "/Dllearning",
-            title:"深度学习",
-          }
+            }
         ];
 
         const route = useRoute();
