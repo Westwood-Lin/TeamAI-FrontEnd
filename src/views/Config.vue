@@ -10,7 +10,7 @@
 
         <div class="container">
             <div class="handle-box">
-                <el-select v-model="query.address" placeholder="模型类别" class="handle-select mr10">
+                <el-select v-model="query.file" placeholder="模型类别" class="handle-select mr10">
                     <el-option key="0" label="所有" value="0"></el-option>
                     <el-option key="1" label="分类" value="1"></el-option>
                     <el-option key="2" label="聚类" value="2"></el-option>
@@ -19,7 +19,7 @@
                 </el-select>
                 <el-input v-model="query.name" placeholder="模型名" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                <el-button type="success" icon="el-icon-plus" @click="handleSearch" style="position: absolute;right: 15em">添加模型</el-button>
+                <el-button type="success" icon="el-icon-plus" @click="handleEdit(tableData.length,0)" style="position: absolute;right: 15em">添加模型</el-button>
                 <el-button type="danger" icon="el-icon-minus" @click="handleBatchDelete" style="position: absolute;right: 5em">批量删除</el-button>
             </div>
 
@@ -43,7 +43,7 @@
 <!--                        </el-image>-->
 <!--                    </template>-->
 <!--                </el-table-column>-->
-<!--                <el-table-column prop="address" label="地址"></el-table-column>-->
+<!--                <el-table-column prop="file" label="地址"></el-table-column>-->
 <!--                <el-table-column label="状态" align="center">-->
 <!--                    <template #default="scope">-->
 <!--                        <el-tag :type="-->
@@ -79,7 +79,7 @@
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="训练文件" required>
-                    <el-input v-model="form.address"></el-input>
+                    <el-input v-model="form.file"></el-input>
                 </el-form-item>
                 <el-form-item label="选择模型类别" required>
                   <el-checkbox label="分类"></el-checkbox>
@@ -119,7 +119,7 @@ export default {
     //训练特征
   setup() {
         const query = reactive({
-            address: "",
+            file: "",
             name: "",
             pageIndex: 1,
             pageSize: 10,
@@ -204,7 +204,7 @@ export default {
         const editVisible = ref(false);
         let form = reactive({
             name: "",
-            address: "",
+            file: "",
           // classification:"",
           // feature:"",
         });
