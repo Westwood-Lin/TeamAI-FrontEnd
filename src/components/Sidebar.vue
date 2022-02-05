@@ -41,17 +41,22 @@ export default {
             {
                 icon: "el-icon-lx-home",
                 index: "/dashboard",
-                title: "系统首页",
+                title: "首页",
             },
             {
                 icon: "el-icon-lx-cascades",
-                index: "/table",
-                title: "基础表格",
+                index: "/config",
+                title: "模型配置",
+            },
+            {
+              icon: "el-icon-lx-redpacket_fill",
+              index: "/Dllearning",
+              title:"深度学习",
             },
             {
                 icon: "el-icon-lx-copy",
                 index: "/tabs",
-                title: "tab选项卡",
+                title: "我的消息",
             },
             {
                 icon: "el-icon-lx-calendar",
@@ -112,7 +117,7 @@ export default {
                 icon: "el-icon-lx-redpacket_fill",
                 index: "/donate",
                 title: "支持作者",
-            },
+            }
         ];
 
         const route = useRoute();

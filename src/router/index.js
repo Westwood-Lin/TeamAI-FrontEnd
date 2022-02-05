@@ -14,16 +14,16 @@ const routes = [
                 path: "/dashboard",
                 name: "dashboard",
                 meta: {
-                    title: '系统首页'
+                    title: '首页'
                 },
                 component: () => import ( /* webpackChunkName: "dashboard" */ "../views/Dashboard.vue")
             }, {
-                path: "/table",
-                name: "basetable",
+                path: "/config",
+                name: "config",
                 meta: {
-                    title: '表格'
+                    title: '模型配置'
                 },
-                component: () => import ( /* webpackChunkName: "table" */ "../views/BaseTable.vue")
+                component: () => import ( /* webpackChunkName: "table" */ "../views/Config.vue")
             }, {
                 path: "/charts",
                 name: "basecharts",
@@ -109,6 +109,20 @@ const routes = [
                     title: '富文本编辑器'
                 },
                 component: () => import (/* webpackChunkName: "editor" */ '../views/Editor.vue')
+            },{
+                path:'/dllearning',
+                name:'dllearning',
+                meta:{
+                    title:'深度学习页面'
+                },
+                component:()=>import(/*webpackChunkName:"dllearning" */ '../views/Dllearning.vue')
+            },{
+                path:'/dlform',
+                name:'dlform',
+                meta:{
+                    title:'配置模型'
+                },
+                component:()=>import(/*webpackChunkName:"dllearning" */ '../views/dlform.vue')
             }
         ]
     }, {

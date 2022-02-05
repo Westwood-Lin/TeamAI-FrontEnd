@@ -1,348 +1,198 @@
 <template>
-    <div>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height:252px;">
-                    <div class="user-info">
-                        <img src="../assets/img/img.jpg" class="user-avator" alt />
-                        <div class="user-info-cont">
-                            <div class="user-info-name">{{ name }}</div>
-                            <div>{{ role }}</div>
-                        </div>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录时间：
-                        <span>2019-11-01</span>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录地点：
-                        <span>东莞</span>
-                    </div>
-                </el-card>
-                <el-card shadow="hover" style="height:252px;">
-                    <template #header>
-                        <div class="clearfix">
-                            <span>语言详情</span>
-                        </div>
-                    </template>
-                    Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
-                    <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
-                </el-card>
-            </el-col>
-            <el-col :span="16">
-                <el-row :gutter="20" class="mgb20">
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                            <div class="grid-content grid-con-1">
-                                <i class="el-icon-user-solid grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                            <div class="grid-content grid-con-2">
-                                <i class="el-icon-message-solid grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                            <div class="grid-content grid-con-3">
-                                <i class="el-icon-s-goods grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-                <el-card shadow="hover" style="height:403px;">
-                    <template #header>
-                        <div class="clearfix">
-                            <span>待办事项</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-                        </div>
-                    </template>
-
-                    <el-table :show-header="false" :data="todoList" style="width:100%;">
-                        <el-table-column width="40">
-                            <template #default="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
-                        <el-table-column>
-                            <template #default="scope">
-                                <div class="todo-item" :class="{
-                                        'todo-item-del': scope.row.status,
-                                    }">{{ scope.row.title }}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template>
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-                </el-card>
-            </el-col>
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-                </el-card>
-            </el-col>
-        </el-row>
+  <div>
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>
+          <i class="el-icon-lx-cascades"></i> 首页
+        </el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
+    <div class="container">
+      <div class="handle-box">
+        <el-button type="primary" icon="el-icon-thumb" @click="handleEdit">选择字段</el-button>
+        <el-button type="primary" plain icon="el-icon-s-order" @click="handleSave">保存</el-button>
+      </div>
+
+      <el-table :data="tableData" border class="table" ref="multipleTable" header-cell-class-name="table-header">
+        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
+        <el-table-column label="字段名">
+          <template #default="scope">{{ scope.row.fieldname }}</template>
+        </el-table-column>
+        <el-table-column label="别名">
+          <template #default="scope">{{ scope.row.alias }}</template>
+        </el-table-column>
+        <el-table-column label="描述">
+          <template #default="scope">{{ scope.row.desc }}</template>
+        </el-table-column>
+        <el-table-column label="取值类型">
+          <template #default="scope">{{ scope.row.num }}</template>
+        </el-table-column>
+        <el-table-column label="分布类型">
+          <template #default="scope">{{ scope.row.distribution }}</template>
+        </el-table-column>
+        <el-table-column label="空值率">
+          <template #default="scope">{{ scope.row.null }}</template>
+        </el-table-column>
+
+        <el-table-column label="值域" >
+          <template #default="scope">{{ scope.row.num }}</template>
+        </el-table-column>
+        <el-table-column  label="创建时间"></el-table-column>
+      </el-table>
+      <div class="pagination">
+        <el-pagination background layout="total, prev, pager, next" :current-page="query.pageIndex"
+                       :page-size="query.pageSize" :total="pageTotal" @current-change="handlePageChange"></el-pagination>
+      </div>
+    </div>
+
+    <!-- 编辑弹出框 -->
+    <el-dialog title="选择字段" v-model="editVisible" width="30%">
+      <el-form label-width="120px">
+        <el-form-item label="统计分析" required>
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="所选方法简介" required>
+          <el-input v-model="form.address"></el-input>
+        </el-form-item>
+        <el-form-item label="可选择字段" required>
+
+        </el-form-item>
+
+      </el-form>
+      <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="editVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="saveEdit">确 定</el-button>
+                </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
-import Schart from "vue-schart";
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { fetchData } from "../api/index";
 export default {
-    name: "dashboard",
-    components: { Schart },
-    setup() {
-        const name = localStorage.getItem("ms_username");
-        const role = name === "admin" ? "超级管理员" : "普通用户";
+  name: "config",
+  //训练特征
+  setup() {
+    const query = reactive({
+      address: "",
+      name: "",
+      pageIndex: 1,
+      pageSize: 10,
+    });
 
-        const data = reactive([
-            {
-                name: "2018/09/04",
-                value: 1083,
-            },
-            {
-                name: "2018/09/05",
-                value: 941,
-            },
-            {
-                name: "2018/09/06",
-                value: 1139,
-            },
-            {
-                name: "2018/09/07",
-                value: 816,
-            },
-            {
-                name: "2018/09/08",
-                value: 327,
-            },
-            {
-                name: "2018/09/09",
-                value: 228,
-            },
-            {
-                name: "2018/09/10",
-                value: 1065,
-            },
-        ]);
-        const options = {
-            type: "bar",
-            title: {
-                text: "最近一周各品类销售图",
-            },
-            xRorate: 25,
-            labels: ["周一", "周二", "周三", "周四", "周五"],
-            datasets: [
-                {
-                    label: "家电",
-                    data: [234, 278, 270, 190, 230],
-                },
-                {
-                    label: "百货",
-                    data: [164, 178, 190, 135, 160],
-                },
-                {
-                    label: "食品",
-                    data: [144, 198, 150, 235, 120],
-                },
-            ],
-        };
-        const options2 = {
-            type: "line",
-            title: {
-                text: "最近几个月各品类销售趋势图",
-            },
-            labels: ["6月", "7月", "8月", "9月", "10月"],
-            datasets: [
-                {
-                    label: "家电",
-                    data: [234, 278, 270, 190, 230],
-                },
-                {
-                    label: "百货",
-                    data: [164, 178, 150, 135, 160],
-                },
-                {
-                    label: "食品",
-                    data: [74, 118, 200, 235, 90],
-                },
-            ],
-        };
-        const todoList = reactive([
-            {
-                title: "今天要修复100个bug",
-                status: false,
-            },
-            {
-                title: "今天要修复100个bug",
-                status: false,
-            },
-            {
-                title: "今天要写100行代码加几个bug吧",
-                status: false,
-            },
-            {
-                title: "今天要修复100个bug",
-                status: false,
-            },
-            {
-                title: "今天要修复100个bug",
-                status: true,
-            },
-            {
-                title: "今天要写100行代码加几个bug吧",
-                status: true,
-            },
-        ]);
+    //new TODO
+    //TODO
+    const fieldNameList=[]; //字段名
+    const aliasList=[];   //别名
+    const descList=[];      //描述
+    const aList=[];   //取值类型
+    const bList=[];   //分布类型
+    const cList=[];   //空值率
+    const dList=[];
 
-        return {
-            name,
-            data,
-            options,
-            options2,
-            todoList,
-            role,
-        };
-    },
+
+    const tableData = ref([]);
+    const pageTotal = ref(0);
+    // 获取表格数据
+    const getData = () => {
+      fetchData(query).then((res) => {
+        tableData.value = res.list;
+        pageTotal.value = res.pageTotal || 50;
+      });
+    };
+    getData();
+
+    // 查询操作
+    const handleSearch = () => {
+      query.pageIndex = 1;
+      getData();
+    };
+    // 分页导航
+    const handlePageChange = (val) => {
+      query.pageIndex = val;
+      getData();
+    };
+
+    // 删除操作
+    const handleDelete = (index) => {
+      // 二次确认删除
+      ElMessageBox.confirm("确定要删除吗？", "提示", {
+        type: "warning",
+      })
+          .then(() => {
+            ElMessage.success("删除成功");
+            tableData.value.splice(index, 1);
+          })
+          .catch(() => {});
+    };
+
+    // 表格编辑时弹窗和保存
+    const editVisible = ref(false);
+    let form = reactive({
+      name: "",
+      address: "",
+      // classification:"",
+      // feature:"",
+    });
+    let idx = -1;
+    const handleEdit = () => {
+      editVisible.value = true;
+    };
+    const saveEdit = () => {
+      editVisible.value = false;
+      ElMessage.success(`修改第 ${idx + 1} 行成功`);
+      Object.keys(form).forEach((item) => {
+        tableData.value[idx][item] = form[item];
+      });
+    };
+
+    return {
+      query,
+      tableData,
+      pageTotal,
+      editVisible,
+      form,
+      handleSearch,
+      handlePageChange,
+      handleDelete,
+      handleEdit,
+      saveEdit,
+    };
+  },
 };
 </script>
 
 <style scoped>
-.el-row {
-    margin-bottom: 20px;
+.handle-box {
+  margin-bottom: 20px;
 }
 
-.grid-content {
-    display: flex;
-    align-items: center;
-    height: 100px;
+.handle-select {
+  width: 120px;
 }
 
-.grid-cont-right {
-    flex: 1;
-    text-align: center;
-    font-size: 14px;
-    color: #999;
+.handle-input {
+  width: 300px;
+  display: inline-block;
 }
-
-.grid-num {
-    font-size: 30px;
-    font-weight: bold;
+.table {
+  width: 100%;
+  font-size: 14px;
 }
-
-.grid-con-icon {
-    font-size: 50px;
-    width: 100px;
-    height: 100px;
-    text-align: center;
-    line-height: 100px;
-    color: #fff;
+.red {
+  color: #ff0000;
 }
-
-.grid-con-1 .grid-con-icon {
-    background: rgb(45, 140, 240);
+.mr10 {
+  margin-right: 10px;
 }
-
-.grid-con-1 .grid-num {
-    color: rgb(45, 140, 240);
-}
-
-.grid-con-2 .grid-con-icon {
-    background: rgb(100, 213, 114);
-}
-
-.grid-con-2 .grid-num {
-    color: rgb(45, 140, 240);
-}
-
-.grid-con-3 .grid-con-icon {
-    background: rgb(242, 94, 67);
-}
-
-.grid-con-3 .grid-num {
-    color: rgb(242, 94, 67);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-}
-
-.user-avator {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-}
-
-.user-info-cont {
-    padding-left: 50px;
-    flex: 1;
-    font-size: 14px;
-    color: #999;
-}
-
-.user-info-cont div:first-child {
-    font-size: 30px;
-    color: #222;
-}
-
-.user-info-list {
-    font-size: 14px;
-    color: #999;
-    line-height: 25px;
-}
-
-.user-info-list span {
-    margin-left: 70px;
-}
-
-.mgb20 {
-    margin-bottom: 20px;
-}
-
-.todo-item {
-    font-size: 14px;
-}
-
-.todo-item-del {
-    text-decoration: line-through;
-    color: #999;
-}
-
-.schart {
-    width: 100%;
-    height: 300px;
+.table-td-thumb {
+  display: block;
+  margin: auto;
+  width: 40px;
+  height: 40px;
 }
 </style>
