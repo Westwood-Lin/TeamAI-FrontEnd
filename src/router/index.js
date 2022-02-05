@@ -28,7 +28,7 @@ const routes = [
                 path: "/charts",
                 name: "basecharts",
                 meta: {
-                    title: '图表'
+                    title: '训练结果'
                 },
                 component: () => import ( /* webpackChunkName: "charts" */ "../views/BaseCharts.vue")
             }, {

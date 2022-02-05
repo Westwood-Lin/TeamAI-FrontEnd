@@ -1,0 +1,12 @@
+{
+    "list":[
+        {
+         "configId":1,
+         "modelTypeId":1,
+         "modelTypeName":2,
+         "modelDes":"experiment" ,  
+         "modelDetileDes": "",
+         "featureList":""
+     }],
+    "pageTotal":5
+ }
