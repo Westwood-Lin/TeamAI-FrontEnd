@@ -59,8 +59,12 @@
                 <el-table-column prop="date" label="创建时间"></el-table-column>
                 <el-table-column label="操作" width="180" align="center">
                     <template #default="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑
+<!--                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑-->
+<!--                        </el-button>-->
+                      <router-link to="/configform">
+                        <el-button type="text" icon="el-icon-edit">编辑
                         </el-button>
+                      </router-link>
                         <el-button type="text" icon="el-icon-delete" class="red"
                             @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>

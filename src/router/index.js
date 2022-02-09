@@ -123,7 +123,16 @@ const routes = [
                     title:'配置模型'
                 },
                 component:()=>import(/*webpackChunkName:"dllearning" */ '../views/dlform.vue')
+            },
+            {
+                path:'/configform',
+                name:'configform',
+                meta:{
+                    title:'编辑配置'
+                },
+                component:()=>import(/*webpackChunkName:"configform" */ '../views/ConfigForm.vue')
             }
+
         ]
     }, {
         path: "/login",
